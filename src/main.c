@@ -14,6 +14,13 @@ enum Operation {
 	OP_UPGRADE
 };
 
+enum Param {
+	PARAM_CHECK,//k
+	PARAM_REFRESH,//y
+	PARAM_PRINT,//p
+	PARAM,_SEARCH
+}
+
 struct Arguments {
 	enum Operation operation;
 	unsigned int param_count,target_count;
@@ -28,9 +35,6 @@ void checkOPExists() {
 	}
 }
 
-void addParam(char p) {
-	argument.params
-}
 
 int parseOperation(const char* p) {
 	if(strcmp(p,"V")==0||strcmp(p,"version")==0) {
