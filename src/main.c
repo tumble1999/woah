@@ -283,6 +283,15 @@ int main(int argc, char const *argv[])
 			callAPT("sudo apt upgrade");
 			done++;
 		}
+		
+		if(done==0) {
+			const char* apt_install = "sudo apt install";
+			
+			char* cmd = malloc((strlen(apt_install)+1+args.targets_len)*sizeof(char));
+			sprintf(cmd, "%s %s",apt_install,args.targets);
+			callAPT(cmd);
+			done++;
+		}
 	}
 
 	if (!done)
