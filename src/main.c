@@ -271,20 +271,20 @@ int main(int argc, char const *argv[])
 	printf("Targets: %s\n",args.targets);
 
 	int done = 0;
-	if (args.op == OP_SYNC)
+	if (args.op == OP_SYNC) // -S
 	{
-		if (args.params[PARAM_REFRESH] == 1)
+		if (args.params[PARAM_REFRESH] == 1) // -Sy
 		{
 			callAPT("sudo apt update");
 			done++;
 		}
-		if (args.params[PARAM_UPGRADES] == 1)
+		if (args.params[PARAM_UPGRADES] == 1) // -Su
 		{
 			callAPT("sudo apt upgrade");
 			done++;
 		}
 		
-		if(done==0) {
+		if(done==0) { // -S (targets)
 			const char* apt_install = "sudo apt install";
 			
 			char* cmd = malloc((strlen(apt_install)+1+args.targets_len)*sizeof(char));
