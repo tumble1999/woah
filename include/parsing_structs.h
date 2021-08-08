@@ -30,7 +30,7 @@ enum Param
 struct Arguments
 {
 	enum Operation op;
-	unsigned int params[NUM_PARAMS];
+	unsigned int *params;
 	const char **targets_arr;
 	unsigned int target_count;
 	const char *targets;

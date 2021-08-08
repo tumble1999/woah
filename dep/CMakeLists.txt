@@ -1,0 +1,13 @@
+find_package(apt-pkg REQUIRED)
+
+message(NOTICE "APTPKG_INCLUDE_DIR ${APTPKG_INCLUDE_DIR}")
+message(NOTICE "APTPKG_LIBRARY ${APTPKG_LIBRARY}")
+if(APTPKG_FOUND)
+include_directories(${APTPKG_INCLUDE_DIR})
+
+endif()
+
+set(WOAH_LIBS
+${APTPKG_LIBRARY}
+PARENT_SCOPE
+)

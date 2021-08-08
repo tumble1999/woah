@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+#include <cstdlib>
 
 void checkOPExists(struct Arguments *args)
 {
@@ -149,7 +149,7 @@ int parseDoubleDashed(struct Arguments *args, const char *p)
 	if (!addParam(args, p))
 		return 0;
 
-	printf("Unsuported argument: -%s\n", p);
+	printf("Unsupported argument: --%s\n", p);
 	return 1;
 }
 
@@ -165,7 +165,7 @@ int parseSingleDashed(struct Arguments *args, const char *p)
 		if (!addParam(args, c))
 			continue;
 
-		printf("Unsuported argument: --%c\n", p[i]);
+		printf("Unsupported argument: -%c\n", p[i]);
 		return 1;
 	}
 	return 0;
@@ -176,7 +176,7 @@ int parseRegular(struct Arguments *args, const char *p)
 	if (!addTarget(args, p))
 		return 0;
 
-	printf("Unsuported argument: %s\n", p);
+	printf("Unsupported argument: %s\n", p);
 	return 1;
 }
 
@@ -184,8 +184,9 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 {
 	args->op = OP_NULL;
 	args->target_count = 0;
-	args->targets_arr = malloc(argc * sizeof(const char *));
+	args->targets_arr = (const char **)malloc(argc * sizeof(const char *));
 	args->targets_len = 0;
+	args->params = (unsigned int *)malloc(sizeof(int) * NUM_PARAMS);
 
 	for (int i = 1; i < argc; i++)
 	{
@@ -193,7 +194,7 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 
 		if (p[0] == '-')
 		{
-			if (p[1] == '-')
+			if (p[1] == '-' && strlen(p) > 2)
 			{
 				if (parseDoubleDashed(args, p + 2))
 					return 1;
@@ -211,12 +212,10 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 				return 1;
 		}
 	}
-	
-	
 
 	//MergeTargets
 	args->targets_len += args->target_count; // Add spaces
-	args->targets = malloc(args->targets_len * sizeof(char));
+	args->targets = (const char *)malloc(args->targets_len * sizeof(char));
 	int offset = 0;
 	for (int i = 0; i < args->target_count; i++)
 	{
@@ -227,6 +226,6 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 		offset += written;
 	}
 	printf("Targets: %s\n", args->targets);
-	
+
 	return 0;
 }
