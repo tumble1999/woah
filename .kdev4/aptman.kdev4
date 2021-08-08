@@ -1,0 +1,38 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x0c\x00a\x00p\x00t\x00m\x00a\x00n)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index-Host System=0
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=/home/tumble/Documents/dev/cpp/aptman/build
+Build Type=Debug
+CMake Binary=/usr/bin/cmake
+CMake Executable=/usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=/usr/local
+Runtime=Host System
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=woah
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=-Suy man
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x03\x00\x00\x00\x0c\x00a\x00p\x00t\x00m\x00a\x00n\x00\x00\x00\x06\x00s\x00r\x00c\x00\x00\x00\x08\x00w\x00o\x00a\x00h)
+Dependency Action=Build
+EnvironmentGroup=
+Executable=file:///home/tumble/Documents/dev/cpp/aptman
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Kill Before Executing Again=4194304
+Project Target=aptman,src,woah
+Use External Terminal=false
+Working Directory=
+isExecutable=false
