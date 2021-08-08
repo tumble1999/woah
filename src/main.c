@@ -14,10 +14,23 @@ enum Operation {
 	OP_UPGRADE
 };
 
+enum Param {
+	PARAM_CHECK,//k
+	PARAM_REFRESH,//y
+	PARAM_PRINT,//p
+	PARAM_SEARCH,//s
+	PARAM_LIST,//l
+	PARAM_GROUPS,//g
+	PARAM_INFO,//i
+	PARAM_CLEAN,//c
+	PARAM_UPGRADES,//u
+	NUM_PARAMS
+};
+
 struct Arguments {
 	enum Operation operation;
-	unsigned int param_count,target_count;
-	char* params;
+	unsigned int target_count;
+	unsigned int params[NUM_PARAMS];
 	char** targets;
 } arguments;
 
@@ -28,8 +41,53 @@ void checkOPExists() {
 	}
 }
 
-void addParam(char p) {
-	argument.params
+int parseParam(const char* p) {
+	if(strcmp(p,"k")==0||strcmp(p,"check")==0) {
+		arguments.params[PARAM_CHECK]++;
+		printf("Param: CHECK\n");
+		return 0;
+	}
+	if(strcmp(p,"y")==0||strcmp(p,"refresh")==0) {
+		arguments.params[PARAM_REFRESH]++;
+		printf("Param: REFRESH\n");
+		return 0;
+	}
+	if(strcmp(p,"p")==0||strcmp(p,"print")==0) {
+		arguments.params[PARAM_PRINT]++;
+		printf("Param: PRINT\n");
+		return 0;
+	}
+	if(strcmp(p,"s")==0||strcmp(p,"search")==0) {
+		arguments.params[PARAM_SEARCH]++;
+		printf("Param: SEARCH\n");
+		return 0;
+	}
+	if(strcmp(p,"l")==0||strcmp(p,"list")==0) {
+		arguments.params[PARAM_LIST]++;
+		printf("Param: LIST\n");
+		return 0;
+	}
+	if(strcmp(p,"g")==0||strcmp(p,"groups")==0) {
+		arguments.params[PARAM_GROUPS]++;
+		printf("Param: GROUPS\n");
+		return 0;
+	}
+	if(strcmp(p,"i")==0||strcmp(p,"info")==0) {
+		arguments.params[PARAM_INFO]++;
+		printf("Param: INFO\n");
+		return 0;
+	}
+	if(strcmp(p,"c")==0||strcmp(p,"clean")==0) {
+		arguments.params[PARAM_CLEAN]++;
+		printf("Param: CLEAN\n");
+		return 0;
+	}
+	if(strcmp(p,"u")==0||strcmp(p,"upgrades")==0) {
+		arguments.params[PARAM_UPGRADES]++;
+		printf("Param: UPGRADES\n");
+		return 0;
+	}
+	return 1;
 }
 
 int parseOperation(const char* p) {
@@ -86,24 +144,22 @@ int parseOperation(const char* p) {
 
 
 int parseDoubleDashed(const char* p) {
-	printf("Double Dashed: %s\n",p);
 	if(!parseOperation(p)) return 0;
-		
-	//TODO: Parse regular args
+	if(!parseParam(p)) return 0;
 		
 	printf("Unsuported argument: -%s\n",p);
 	return 1;
 }
 
 int parseSingleDashed(const char* p) {
-	printf("Dashed: %s\n",p);
 	int l = strlen(p);
 	
 	for (int i = 0; i < l; i++)
 	{
 		const char c[2] = {p[i],'\0'};
-		printf("%c\n",p[i]);
 		if(!parseOperation(c)) continue;
+		if(!parseParam(c)) continue;
+		
 		printf("Unsuported argument: --%c\n",p[i]);
 		return 1;
 	}
@@ -112,7 +168,7 @@ int parseSingleDashed(const char* p) {
 
 int parseRegular(const char* p) {
 	printf("Regular: %s\n",p);
-	return 0;
+	return 1;
 }
 
 int main(int argc, char const *argv[])

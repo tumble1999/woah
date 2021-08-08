@@ -36,3 +36,6 @@ Project Target=aptman,src,woah
 Use External Terminal=false
 Working Directory=
 isExecutable=false
+
+[Project]
+VersionControlSupport=kdevgit
