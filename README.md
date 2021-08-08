@@ -40,7 +40,7 @@
 	- [ ] -Qt - Query unrequired
 	- [ ] -Qu - Query upgrades
 	- [ ] -Qv - Query verbose
-- [s] -R - Remove
+- [x] -R - Remove
 	- [ ] -Rb - Remove dbpath
 	- [ ] -Rc - Remove cascade
 	- [ ] -Rd - Remove nodeps
