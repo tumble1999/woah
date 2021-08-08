@@ -57,9 +57,9 @@ int callApt(struct Arguments *args)
 		}
 	}
 
-	if (args->op == OP_REMOVE)
+	if (args->op == OP_REMOVE) // -R
 	{
-		if (done == 0)
+		if (done == 0) // -R (targets)
 		{
 			char *cmd = (char *)malloc((strlen(apt_remove) + 1 + args->targets_len) * sizeof(char));
 			sprintf(cmd, "%s %s", apt_remove, args->targets);
