@@ -1,0 +1,18 @@
+{
+	"files.associations": {
+		"*.tcc": "c",
+		"array": "c",
+		"numeric": "c",
+		"functional": "c",
+		"mutex": "c",
+		"new": "c",
+		"ranges": "c",
+		"stdexcept": "c",
+		"streambuf": "c",
+		"thread": "c",
+		"tuple": "c",
+		"optional": "c",
+		"limits": "c",
+		"stop_token": "c"
+	}
+}
