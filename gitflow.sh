@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "release
+echo "master
 develop
 feature/
 bugfix/
