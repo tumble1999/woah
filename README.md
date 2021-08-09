@@ -91,10 +91,15 @@
 
 ## Building
 ```
-sudo apt install build-essential cmake libapt-pkg-dev
+sudo apt install build-essential cmake apt-file libapt-pkg-dev
 ```
 ```
 mkdir build
 cd build
 cmake ..
+```
+## Installing
+```
+sudo cpack --config build/CPackConfig.cmake
+sudo apt install ./woah-0.0.0-Linux.deb
 ```
