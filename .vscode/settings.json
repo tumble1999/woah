@@ -13,6 +13,7 @@
 		"tuple": "c",
 		"optional": "c",
 		"limits": "c",
-		"stop_token": "c"
+		"stop_token": "c",
+		"typeinfo": "cpp"
 	}
 }

@@ -19,10 +19,10 @@ const char
 	//Regex
 		*get_version = "Installed: ([0-9.]*)";
 
-void callCommand(const char *cmd)
+int callCommand(const char *cmd)
 {
 	printf("> %s\n", cmd);
-	system(cmd);
+	return system(cmd);
 }
 
 FILE *getCommand(const char *cmd)
@@ -61,28 +61,80 @@ char *getVersion(const char *tool)
 int callApt(struct Arguments *args)
 {
 	int done = 0;
+	if (args->params[PARAM_HELP] == 1)
+	{
+		if (done == 0 && args->op == OP_VERSION)
+		{
+			printf("usage:  woah {-V, --version} <options> <packages>\n\
+options:\n\
+  -q, --quiet      hide package name\n\
+packages:\n\
+  apt              apt version info\n\
+  dpkg             dpkg version info\n\
+  apt-file         apt-file version info\n\
+  woah             woah version info\n\
+");
+			done++;
+		}
+		if (done == 0 && args->op == OP_REMOVE)
+		{
+			printf("usage:  woah {-R --remove} <packages>\n\
+");
+			done++;
+		}
+		if (done == 0 && args->op == OP_SYNC)
+		{
+			printf("usage:  woah {-S --sync} [options] <packages>\n\
+options:\n\
+  -s, --search <regex> search in package descriptions\n\
+  -u, --upgrades       upgrade the system by installing/upgrading packages\n\
+  -y, --refresh        update list of available packages\n\
+");
+			done++;
+		}
+		if (done == 0)
+		{
+			printf("usage:  woah <operation> [...]\n\
+operations:\n\
+    woah {-h --help}\n\
+    woah {-V, --version} <options> <packages>\n\
+    woah {-R --remove}             <packages>\n\
+    woah {-S --sync}    [options]  <packages>\n\
+\n\
+use 'woah {-h --help}' with an operation for available options\n\
+");
+			done++;
+		}
+	}
+
 	if (args->op == OP_VERSION)
 	{
 		if (done == 0)
 		{
-			if (args->params[PARAM_WOAH] == 1)
+			for (int i = 0; i < args->target_count; i++)
 			{
-				printf("woah v%s\n", WOAH_VERSION);
-				done++;
-			}
-			if (args->params[PARAM_DEPS] == 1)
-			{
-				printf("dpkg v%s", getVersion("dpkg"));
-				done++;
-			}
-			if (args->params[PARAM_APT] == 1)
-			{
-				printf("apt v%s", getVersion("apt"));
-				done++;
-			}
-			if (args->params[PARAM_APTFILE] == 1)
-			{
-				printf("apt-file v%s", getVersion("apt-file"));
+				if (strcmp(args->targets_arr[i], "woah") == 0)
+				{
+					if (args->params[PARAM_QUIET] == 1)
+					{
+						printf("%s\n", WOAH_VERSION);
+					}
+					else
+					{
+						printf("woah %s\n", WOAH_VERSION);
+					}
+				}
+				else
+				{
+					if (args->params[PARAM_QUIET] == 1)
+					{
+						printf("%s", getVersion(args->targets_arr[i]));
+					}
+					else
+					{
+						printf("%s %s", args->targets_arr[i], getVersion(args->targets_arr[i]));
+					}
+				}
 				done++;
 			}
 		}
@@ -90,12 +142,23 @@ int callApt(struct Arguments *args)
 		// -V
 		if (done == 0)
 		{
-			printf("woah v%s\n", WOAH_VERSION);
-			printf("dpkg v%s", getVersion("dpkg"));
-			printf("apt v%s", getVersion("apt"));
-			printf("apt-file v%s", getVersion("apt-file"));
-			done++;
+
+			if (args->params[PARAM_QUIET] == 1)
+			{
+				printf("%s\n", WOAH_VERSION);
+				printf("%s", getVersion("dpkg"));
+				printf("%s", getVersion("apt"));
+				printf("%s", getVersion("apt-file"));
+			}
+			else
+			{
+				printf("woah %s\n", WOAH_VERSION);
+				printf("dpkg %s", getVersion("dpkg"));
+				printf("apt %s", getVersion("apt"));
+				printf("apt-file %s", getVersion("apt-file"));
+			}
 		}
+		done++;
 	}
 	if (args->op == OP_SYNC)
 	{ // -S

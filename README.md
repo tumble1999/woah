@@ -4,12 +4,14 @@
 **DEBIAN/UBUNTU ONLY*** - *This is a wrapper for APT and therefore is only available for Debain/Ubuntu systems.*
 
 ## Todo
-- [ ] -h - help
+- [x] -h - help
 - [x] -V - Version
-	- [x] -Va - Version apt
-	- [x] -Vd - Version dpkg
-	- [x] -Vf - Version apt-file
-	- [x] -Vw - Version WOAH
+	- [x] -Vh - Version help
+	- [x] -Vq - Version quiet
+	- [x] -V apt - Version apt
+	- [x] -V dpkg - Version dpkg
+	- [x] -V apt-file - Version apt-file
+	- [x] -V woah - Version WOAH
 - [ ] -D - Database
 	- [ ] -Dh - Database help
 	- [ ] -Db - Database dbpath
@@ -48,7 +50,7 @@
 	- [ ] -Qu - Query upgrades
 	- [ ] -Qv - Query verbose
 - [x] -R - Remove
-	- [ ] -Rh - Remove help
+	- [x] -Rh - Remove help
 	- [ ] -Rb - Remove dbpath
 	- [ ] -Rc - Remove cascade
 	- [ ] -Rd - Remove nodeps
@@ -59,7 +61,7 @@
 	- [ ] -Ru - Remove uneeded
 	- [ ] -Rv - Remove verbose
 - [x] -S - Sync
-	- [ ] -Sh Sync help
+	- [x] -Sh Sync help
 	- [ ] -Sb Sync dbpath
 	- [ ] -Sc Sync clean
 	- [ ] -Sd Sync nodeps

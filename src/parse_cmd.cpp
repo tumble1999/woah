@@ -67,19 +67,18 @@ int addOperation(struct Arguments *args, const char *p)
 int addParam(struct Arguments *args, const char *p)
 {
 	if (
-		lookupParam(args, p, "APT", PARAM_APT, 2, "a", "apt") ||
 		lookupParam(args, p, "CLEAN", PARAM_CLEAN, 2, "c", "clean") ||
-		lookupParam(args, p, "DEPS", PARAM_DEPS, 3, "d", "deps", "dpkg") ||
-		lookupParam(args, p, "APTFILE", PARAM_APTFILE, 2, "f", "aptfile") ||
+		lookupParam(args, p, "DEPS", PARAM_DEPS, 2, "d", "deps") ||
 		lookupParam(args, p, "GROUPS", PARAM_GROUPS, 2, "g", "groups") ||
+		lookupParam(args, p, "HELP", PARAM_HELP, 2, "h", "help") ||
 		lookupParam(args, p, "INFO", PARAM_INFO, 2, "i", "info") ||
 		lookupParam(args, p, "CHECK", PARAM_CHECK, 2, "p", "check") ||
+		lookupParam(args, p, "QUIET", PARAM_QUIET, 2, "q", "quiet") ||
 		lookupParam(args, p, "LIST", PARAM_LIST, 2, "l", "list") ||
 		lookupParam(args, p, "PRINT", PARAM_PRINT, 2, "p", "print") ||
 		lookupParam(args, p, "SEARCH", PARAM_SEARCH, 2, "s", "search") ||
 		lookupParam(args, p, "UPGRADES", PARAM_UPGRADES, 2, "u", "upgrades") ||
-		lookupParam(args, p, "REFRESH", PARAM_REFRESH, 2, "y", "refresh") ||
-		lookupParam(args, p, "WOAH", PARAM_WOAH, 2, "w", "woah"))
+		lookupParam(args, p, "REFRESH", PARAM_REFRESH, 2, "y", "refresh"))
 		return 0;
 	return 1;
 }
