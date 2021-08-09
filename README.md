@@ -1,6 +1,7 @@
 # WOAH
 **W**ay **O**rganised **A**PT **H**andler - A wrapper for APT inspired by [YAY](https://github.com/Jguer/yay/)
-**DEBIAN/UBUNTU ONLY*** - This is a wrapper for APT and therefore is only available for Debain/Ubuntu systems.*
+
+**DEBIAN/UBUNTU ONLY*** - *This is a wrapper for APT and therefore is only available for Debain/Ubuntu systems.*
 
 ## Todo
 - [ ] -h - help
