@@ -3,15 +3,18 @@
 **DEBIAN/UBUNTU ONLY*** - This is a wrapper for APT and therefore is only available for Debain/Ubuntu systems.*
 
 ## Todo
-- [ ] -h
-- [ ] -V - Version
+- [ ] -h - help
+- [x] -V - Version
+	- [x] -Vq - Version mimimal
 - [ ] -D - Database
+	- [ ] -Dh - Database help
 	- [ ] -Db - Database dbpath
 	- [ ] -Dk - Database check
 	- [ ] -Dq - Database quiet
 	- [ ] -Dr - Database root
 	- [ ] -Dv - Database verbose
 - [ ] -F Files
+	- [ ] -Fh - Files help
 	- [ ] -Fb - Files dbpath
 	- [ ] -Fl - Files list
 	- [ ] -Fo - Files owns
@@ -41,6 +44,7 @@
 	- [ ] -Qu - Query upgrades
 	- [ ] -Qv - Query verbose
 - [x] -R - Remove
+	- [ ] -Rh - Remove help
 	- [ ] -Rb - Remove dbpath
 	- [ ] -Rc - Remove cascade
 	- [ ] -Rd - Remove nodeps
@@ -51,6 +55,7 @@
 	- [ ] -Ru - Remove uneeded
 	- [ ] -Rv - Remove verbose
 - [x] -S - Sync
+	- [ ] -Sh Sync help
 	- [ ] -Sb Sync dbpath
 	- [ ] -Sc Sync clean
 	- [ ] -Sd Sync nodeps
@@ -66,15 +71,17 @@
 	- [ ] -Sw Sync downloadonly
 	- [x] -Sy Sync refresh
 - [ ] -T - Deptest
+	- [ ] -Th - Deptest help
 	- [ ] -Tb - Deptest dbpath
 	- [ ] -Tr - Deptest root
 	- [ ] -Tv - Deptest verbose
 - [ ] -U - Upgrade
-	- [ ] -U - Upgrade dbpath
-	- [ ] -U - Upgrade nodeps
-	- [ ] -U - Upgrade print
-	- [ ] -U - Upgrade root
-	- [ ] -U - Upgrade verbost
+	- [ ] -Uh - Upgrade help
+	- [ ] -Ub - Upgrade dbpath
+	- [ ] -Ud - Upgrade nodeps
+	- [ ] -Up - Upgrade print
+	- [ ] -Ur - Upgrade root
+	- [ ] -Uv - Upgrade verbost
 
 ## Building
 ```

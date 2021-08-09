@@ -5,10 +5,13 @@
 
 int main(int argc, char const *argv[])
 {
-	printf("Params: woah");
-	for (int i = 1; i < argc; i++)
-		printf(" %s", argv[i]);
-	printf("\n");
+	if (DEBUG)
+	{
+		printf("Params: woah");
+		for (int i = 1; i < argc; i++)
+			printf(" %s", argv[i]);
+		printf("\n");
+	}
 
 	struct Arguments args;
 

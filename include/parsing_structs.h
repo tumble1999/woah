@@ -1,5 +1,7 @@
 #pragma once
 
+#define DEBUG false
+
 enum Operation
 {
 	OP_NULL,
@@ -15,15 +17,16 @@ enum Operation
 
 enum Param
 {
-	PARAM_CHECK,	//k
-	PARAM_REFRESH,	//y
-	PARAM_PRINT,	//p
-	PARAM_SEARCH,	//s
-	PARAM_LIST,		//l
+	PARAM_CLEAN,	//c
 	PARAM_GROUPS,	//g
 	PARAM_INFO,		//i
-	PARAM_CLEAN,	//c
+	PARAM_CHECK,	//k
+	PARAM_LIST,		//l
+	PARAM_PRINT,	//p
+	PARAM_QUIET,	//q
+	PARAM_SEARCH,	//s
 	PARAM_UPGRADES, //u
+	PARAM_REFRESH,	//y
 	NUM_PARAMS
 };
 

@@ -19,56 +19,64 @@ int addOperation(struct Arguments *args, const char *p)
 	{
 		checkOPExists(args);
 		args->op = OP_VERSION;
-		printf("Operation: VERSION\n");
+		if (DEBUG)
+			printf("Operation: VERSION\n");
 		return 0;
 	}
 	if (strcmp(p, "D") == 0 || strcmp(p, "database") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_DATABASE;
-		printf("Operation: DATABASE\n");
+		if (DEBUG)
+			printf("Operation: DATABASE\n");
 		return 0;
 	}
 	if (strcmp(p, "F") == 0 || strcmp(p, "files") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_FILES;
-		printf("Operation: FILES\n");
+		if (DEBUG)
+			printf("Operation: FILES\n");
 		return 0;
 	}
 	if (strcmp(p, "Q") == 0 || strcmp(p, "query") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_QUERY;
-		printf("Operation: QUERY\n");
+		if (DEBUG)
+			printf("Operation: QUERY\n");
 		return 0;
 	}
 	if (strcmp(p, "R") == 0 || strcmp(p, "remove") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_REMOVE;
-		printf("Operation: REMOVE\n");
+		if (DEBUG)
+			printf("Operation: REMOVE\n");
 		return 0;
 	}
 	if (strcmp(p, "S") == 0 || strcmp(p, "sync") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_SYNC;
-		printf("Operation: SYNC\n");
+		if (DEBUG)
+			printf("Operation: SYNC\n");
 		return 0;
 	}
 	if (strcmp(p, "T") == 0 || strcmp(p, "deptest") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_DEPTEST;
-		printf("Operation: DEPTEST\n");
+		if (DEBUG)
+			printf("Operation: DEPTEST\n");
 		return 0;
 	}
 	if (strcmp(p, "U") == 0 || strcmp(p, "upgrade") == 0)
 	{
 		checkOPExists(args);
 		args->op = OP_UPGRADE;
-		printf("Operation: UPGRADE\n");
+		if (DEBUG)
+			printf("Operation: UPGRADE\n");
 		return 0;
 	}
 	return 1;
@@ -76,58 +84,74 @@ int addOperation(struct Arguments *args, const char *p)
 
 int addParam(struct Arguments *args, const char *p)
 {
-	if (strcmp(p, "k") == 0 || strcmp(p, "check") == 0)
+	if (strcmp(p, "c") == 0 || strcmp(p, "clean") == 0)
 	{
-		args->params[PARAM_CHECK]++;
-		printf("Param: CHECK\n");
-		return 0;
-	}
-	if (strcmp(p, "y") == 0 || strcmp(p, "refresh") == 0)
-	{
-		args->params[PARAM_REFRESH]++;
-		printf("Param: REFRESH\n");
-		return 0;
-	}
-	if (strcmp(p, "p") == 0 || strcmp(p, "print") == 0)
-	{
-		args->params[PARAM_PRINT]++;
-		printf("Param: PRINT\n");
-		return 0;
-	}
-	if (strcmp(p, "s") == 0 || strcmp(p, "search") == 0)
-	{
-		args->params[PARAM_SEARCH]++;
-		printf("Param: SEARCH\n");
-		return 0;
-	}
-	if (strcmp(p, "l") == 0 || strcmp(p, "list") == 0)
-	{
-		args->params[PARAM_LIST]++;
-		printf("Param: LIST\n");
+		args->params[PARAM_CLEAN]++;
+		if (DEBUG)
+			printf("Param: CLEAN\n");
 		return 0;
 	}
 	if (strcmp(p, "g") == 0 || strcmp(p, "groups") == 0)
 	{
 		args->params[PARAM_GROUPS]++;
-		printf("Param: GROUPS\n");
+		if (DEBUG)
+			printf("Param: GROUPS\n");
 		return 0;
 	}
 	if (strcmp(p, "i") == 0 || strcmp(p, "info") == 0)
 	{
 		args->params[PARAM_INFO]++;
-		printf("Param: INFO\n");
+		if (DEBUG)
+			printf("Param: INFO\n");
 		return 0;
 	}
-	if (strcmp(p, "c") == 0 || strcmp(p, "clean") == 0)
+	if (strcmp(p, "k") == 0 || strcmp(p, "check") == 0)
 	{
-		args->params[PARAM_CLEAN]++;
-		printf("Param: CLEAN\n");
+		args->params[PARAM_CHECK]++;
+		if (DEBUG)
+			printf("Param: CHECK\n");
+		return 0;
+	}
+	if (strcmp(p, "l") == 0 || strcmp(p, "list") == 0)
+	{
+		args->params[PARAM_LIST]++;
+		if (DEBUG)
+			printf("Param: LIST\n");
+		return 0;
+	}
+	if (strcmp(p, "p") == 0 || strcmp(p, "print") == 0)
+	{
+		args->params[PARAM_PRINT]++;
+		if (DEBUG)
+			printf("Param: PRINT\n");
+		return 0;
+	}
+	if (strcmp(p, "q") == 0 || strcmp(p, "quiet") == 0)
+	{
+		args->params[PARAM_QUIET]++;
+		if (DEBUG)
+			printf("Param: QUIET\n");
+		return 0;
+	}
+	if (strcmp(p, "s") == 0 || strcmp(p, "search") == 0)
+	{
+		args->params[PARAM_SEARCH]++;
+		if (DEBUG)
+			printf("Param: SEARCH\n");
 		return 0;
 	}
 	if (strcmp(p, "u") == 0 || strcmp(p, "upgrades") == 0)
 	{
 		args->params[PARAM_UPGRADES]++;
-		printf("Param: UPGRADES\n");
+		if (DEBUG)
+			printf("Param: UPGRADES\n");
+		return 0;
+	}
+	if (strcmp(p, "y") == 0 || strcmp(p, "refresh") == 0)
+	{
+		args->params[PARAM_REFRESH]++;
+		if (DEBUG)
+			printf("Param: REFRESH\n");
 		return 0;
 	}
 	return 1;
@@ -136,7 +160,8 @@ int addParam(struct Arguments *args, const char *p)
 int addTarget(struct Arguments *args, const char *p)
 {
 	args->targets_arr[args->target_count] = p;
-	printf("Target: %s\n", p);
+	if (DEBUG)
+		printf("Target: %s\n", p);
 	args->target_count++;
 	args->targets_len += strlen(p);
 	return 0;
@@ -225,7 +250,8 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 			break;
 		offset += written;
 	}
-	printf("Targets: %s\n", args->targets);
+	if (args->targets_len > 0 && DEBUG)
+		printf("Targets: %s\n", args->targets);
 
 	return 0;
 }

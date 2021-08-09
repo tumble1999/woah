@@ -18,3 +18,7 @@ PRIVATE ${PROJECT_SOURCE_DIR}/include
 target_link_libraries(${NAME}
 ${WOAH_LIBS}
 )
+
+
+
+install(TARGETS ${NAME} RUNTIME DESTINATION bin)
