@@ -63,10 +63,28 @@ int callApt(struct Arguments *args)
 	int done = 0;
 	if (args->op == OP_VERSION)
 	{
-		if (done == 0 && args->params[PARAM_QUIET] == 1)
+		if (done == 0)
 		{
-			printf("woah v%s\n", WOAH_VERSION);
-			done++;
+			if (args->params[PARAM_WOAH] == 1)
+			{
+				printf("woah v%s\n", WOAH_VERSION);
+				done++;
+			}
+			if (args->params[PARAM_DEPS] == 1)
+			{
+				printf("dpkg v%s", getVersion("dpkg"));
+				done++;
+			}
+			if (args->params[PARAM_APT] == 1)
+			{
+				printf("apt v%s", getVersion("apt"));
+				done++;
+			}
+			if (args->params[PARAM_APTFILE] == 1)
+			{
+				printf("apt-file v%s", getVersion("apt-file"));
+				done++;
+			}
 		}
 
 		// -V

@@ -6,7 +6,10 @@
 ## Todo
 - [ ] -h - help
 - [x] -V - Version
-	- [x] -Vq - Version mimimal
+	- [x] -Va - Version apt
+	- [x] -Vd - Version dpkg
+	- [x] -Vf - Version apt-file
+	- [x] -Vw - Version WOAH
 - [ ] -D - Database
 	- [ ] -Dh - Database help
 	- [ ] -Db - Database dbpath

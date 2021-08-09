@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <cstdlib>
+#include <cstdarg>
 
 void checkOPExists(struct Arguments *args)
 {
@@ -13,147 +14,73 @@ void checkOPExists(struct Arguments *args)
 	}
 }
 
+int lookupOperation(struct Arguments *args, const char *p, const char *name, Operation op, int aliasc, ...)
+{
+	va_list valist;
+	va_start(valist, aliasc);
+	for (int i = 0; i < aliasc; i++)
+	{
+		if (strcmp(p, va_arg(valist, const char *)) == 0)
+		{
+			checkOPExists(args);
+			args->op = op;
+			if (DEBUG)
+				printf("Operation: %s\n", name);
+			return 1;
+		}
+	}
+	return 0;
+}
+
+int lookupParam(struct Arguments *args, const char *p, const char *name, Param param, int aliasc, ...)
+{
+	va_list valist;
+	va_start(valist, aliasc);
+	for (int i = 0; i < aliasc; i++)
+	{
+		if (strcmp(p, va_arg(valist, const char *)) == 0)
+		{
+			args->params[param]++;
+			if (DEBUG)
+				printf("Param: %s\n", name);
+			return 1;
+		}
+	}
+	return 0;
+}
+
 int addOperation(struct Arguments *args, const char *p)
 {
-	if (strcmp(p, "V") == 0 || strcmp(p, "version") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_VERSION;
-		if (DEBUG)
-			printf("Operation: VERSION\n");
+	if (
+		lookupOperation(args, p, "VERSION", OP_VERSION, 2, "V", "version") ||
+		lookupOperation(args, p, "DATABASE", OP_DATABASE, 2, "D", "database") ||
+		lookupOperation(args, p, "FILES", OP_FILES, 2, "F", "files") ||
+		lookupOperation(args, p, "QUERY", OP_QUERY, 2, "Q", "query") ||
+		lookupOperation(args, p, "REMOVE", OP_REMOVE, 2, "R", "remove") ||
+		lookupOperation(args, p, "SYNC", OP_SYNC, 2, "S", "sync") ||
+		lookupOperation(args, p, "DEPTEST", OP_DEPTEST, 2, "T", "deptest") ||
+		lookupOperation(args, p, "VERSION", OP_UPGRADE, 2, "U", "upgrade"))
 		return 0;
-	}
-	if (strcmp(p, "D") == 0 || strcmp(p, "database") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_DATABASE;
-		if (DEBUG)
-			printf("Operation: DATABASE\n");
-		return 0;
-	}
-	if (strcmp(p, "F") == 0 || strcmp(p, "files") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_FILES;
-		if (DEBUG)
-			printf("Operation: FILES\n");
-		return 0;
-	}
-	if (strcmp(p, "Q") == 0 || strcmp(p, "query") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_QUERY;
-		if (DEBUG)
-			printf("Operation: QUERY\n");
-		return 0;
-	}
-	if (strcmp(p, "R") == 0 || strcmp(p, "remove") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_REMOVE;
-		if (DEBUG)
-			printf("Operation: REMOVE\n");
-		return 0;
-	}
-	if (strcmp(p, "S") == 0 || strcmp(p, "sync") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_SYNC;
-		if (DEBUG)
-			printf("Operation: SYNC\n");
-		return 0;
-	}
-	if (strcmp(p, "T") == 0 || strcmp(p, "deptest") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_DEPTEST;
-		if (DEBUG)
-			printf("Operation: DEPTEST\n");
-		return 0;
-	}
-	if (strcmp(p, "U") == 0 || strcmp(p, "upgrade") == 0)
-	{
-		checkOPExists(args);
-		args->op = OP_UPGRADE;
-		if (DEBUG)
-			printf("Operation: UPGRADE\n");
-		return 0;
-	}
 	return 1;
 }
 
 int addParam(struct Arguments *args, const char *p)
 {
-	if (strcmp(p, "c") == 0 || strcmp(p, "clean") == 0)
-	{
-		args->params[PARAM_CLEAN]++;
-		if (DEBUG)
-			printf("Param: CLEAN\n");
+	if (
+		lookupParam(args, p, "APT", PARAM_APT, 2, "a", "apt") ||
+		lookupParam(args, p, "CLEAN", PARAM_CLEAN, 2, "c", "clean") ||
+		lookupParam(args, p, "DEPS", PARAM_DEPS, 3, "d", "deps", "dpkg") ||
+		lookupParam(args, p, "APTFILE", PARAM_APTFILE, 2, "f", "aptfile") ||
+		lookupParam(args, p, "GROUPS", PARAM_GROUPS, 2, "g", "groups") ||
+		lookupParam(args, p, "INFO", PARAM_INFO, 2, "i", "info") ||
+		lookupParam(args, p, "CHECK", PARAM_CHECK, 2, "p", "check") ||
+		lookupParam(args, p, "LIST", PARAM_LIST, 2, "l", "list") ||
+		lookupParam(args, p, "PRINT", PARAM_PRINT, 2, "p", "print") ||
+		lookupParam(args, p, "SEARCH", PARAM_SEARCH, 2, "s", "search") ||
+		lookupParam(args, p, "UPGRADES", PARAM_UPGRADES, 2, "u", "upgrades") ||
+		lookupParam(args, p, "REFRESH", PARAM_REFRESH, 2, "y", "refresh") ||
+		lookupParam(args, p, "WOAH", PARAM_WOAH, 2, "w", "woah"))
 		return 0;
-	}
-	if (strcmp(p, "g") == 0 || strcmp(p, "groups") == 0)
-	{
-		args->params[PARAM_GROUPS]++;
-		if (DEBUG)
-			printf("Param: GROUPS\n");
-		return 0;
-	}
-	if (strcmp(p, "i") == 0 || strcmp(p, "info") == 0)
-	{
-		args->params[PARAM_INFO]++;
-		if (DEBUG)
-			printf("Param: INFO\n");
-		return 0;
-	}
-	if (strcmp(p, "k") == 0 || strcmp(p, "check") == 0)
-	{
-		args->params[PARAM_CHECK]++;
-		if (DEBUG)
-			printf("Param: CHECK\n");
-		return 0;
-	}
-	if (strcmp(p, "l") == 0 || strcmp(p, "list") == 0)
-	{
-		args->params[PARAM_LIST]++;
-		if (DEBUG)
-			printf("Param: LIST\n");
-		return 0;
-	}
-	if (strcmp(p, "p") == 0 || strcmp(p, "print") == 0)
-	{
-		args->params[PARAM_PRINT]++;
-		if (DEBUG)
-			printf("Param: PRINT\n");
-		return 0;
-	}
-	if (strcmp(p, "q") == 0 || strcmp(p, "quiet") == 0)
-	{
-		args->params[PARAM_QUIET]++;
-		if (DEBUG)
-			printf("Param: QUIET\n");
-		return 0;
-	}
-	if (strcmp(p, "s") == 0 || strcmp(p, "search") == 0)
-	{
-		args->params[PARAM_SEARCH]++;
-		if (DEBUG)
-			printf("Param: SEARCH\n");
-		return 0;
-	}
-	if (strcmp(p, "u") == 0 || strcmp(p, "upgrades") == 0)
-	{
-		args->params[PARAM_UPGRADES]++;
-		if (DEBUG)
-			printf("Param: UPGRADES\n");
-		return 0;
-	}
-	if (strcmp(p, "y") == 0 || strcmp(p, "refresh") == 0)
-	{
-		args->params[PARAM_REFRESH]++;
-		if (DEBUG)
-			printf("Param: REFRESH\n");
-		return 0;
-	}
 	return 1;
 }
 

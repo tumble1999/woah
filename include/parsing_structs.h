@@ -17,7 +17,10 @@ enum Operation
 
 enum Param
 {
+	PARAM_APT,		//a
 	PARAM_CLEAN,	//c
+	PARAM_DEPS,		//d
+	PARAM_APTFILE,	//f
 	PARAM_GROUPS,	//g
 	PARAM_INFO,		//i
 	PARAM_CHECK,	//k
@@ -27,6 +30,7 @@ enum Param
 	PARAM_SEARCH,	//s
 	PARAM_UPGRADES, //u
 	PARAM_REFRESH,	//y
+	PARAM_WOAH,//w
 	NUM_PARAMS
 };
 
