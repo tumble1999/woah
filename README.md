@@ -3,6 +3,22 @@
 
 **DEBIAN/UBUNTU ONLY*** - *This is a wrapper for APT and therefore is only available for Debain/Ubuntu systems.*
 
+## Building
+```
+sudo apt install build-essential cmake apt-file libapt-pkg-dev
+```
+```
+mkdir build
+cd build
+cmake ..
+```
+## Installing
+Make sure you have [built](#Building)
+```
+sudo cpack --config build/CPackConfig.cmake
+sudo apt install ./woah-0.0.0-Linux.deb
+```
+
 ## Todo
 - [x] -h - help
 - [x] -V - Version
@@ -88,18 +104,3 @@
 	- [ ] -Up - Upgrade print
 	- [ ] -Ur - Upgrade root
 	- [ ] -Uv - Upgrade verbost
-
-## Building
-```
-sudo apt install build-essential cmake apt-file libapt-pkg-dev
-```
-```
-mkdir build
-cd build
-cmake ..
-```
-## Installing
-```
-sudo cpack --config build/CPackConfig.cmake
-sudo apt install ./woah-0.0.0-Linux.deb
-```
