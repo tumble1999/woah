@@ -13,7 +13,7 @@ cd build
 cmake ..
 ```
 ## Installing
-Make sure you have [built](#Building)
+Make sure you have [built](#Building) and then cd back to the main folder (`cd ..`).
 ```
 sudo cpack --config build/CPackConfig.cmake
 sudo apt install ./woah-0.0.0-Linux.deb
