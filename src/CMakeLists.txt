@@ -21,4 +21,6 @@ ${WOAH_LIBS}
 
 
 
-install(TARGETS ${NAME} RUNTIME DESTINATION bin)
+install(TARGETS ${NAME}
+RUNTIME DESTINATION bin)
+include(CPack)

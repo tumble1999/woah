@@ -1,2 +1,4 @@
 build
 bin
+_CPack_Packages
+*.deb

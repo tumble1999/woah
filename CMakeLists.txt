@@ -13,5 +13,10 @@ execute_process (
 )
 add_compile_definitions(WOAH_VERSION="${CMAKE_PROJECT_VERSION}.${REVISION}")
 
+set(CPACK_GENERATOR DEB)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "apt, dpkg, apt-file")
+set(CPACK_PACKAGE_CONTACT tumble1999)
+set(CPACK_PACKAGE_DESCRIPTION "yay inspired wrapper for apt")
+
 add_subdirectory(dep)
 add_subdirectory(src)
