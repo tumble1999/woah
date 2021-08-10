@@ -19,6 +19,7 @@ enum Param
 {
 	PARAM_CLEAN,	//c
 	PARAM_DEPS,		//d
+	PARAM_EXPLICIT, //e
 	PARAM_GROUPS,	//g
 	PARAM_HELP,		//h
 	PARAM_INFO,		//i
@@ -40,4 +41,29 @@ struct Arguments
 	unsigned int target_count;
 	const char *targets;
 	unsigned int targets_len;
+};
+
+struct dpkg_entry
+{
+	enum package_selection
+	{
+		SEL_UNKNOWN,
+		SEL_INSTALL,
+		SEL_HOLD,
+		SEL_REMOVE,
+		SEL_PURGE
+	} select;
+	enum package_status
+	{
+		STAT_NOTINSTALLED,
+		STAT_CONFIGFILES,
+		STAT_HALFINSTALLED,
+		STAT_UNPACKED,
+		STAT_HALFCONFIGURED,
+		STAT_TRIGGERSAWAITING,
+		STAT_TRIGGERSPENDING,
+		STAT_INSTALLED
+	} status;
+	int reinstall_req;
+	char *name, *version, *arch, *description;
 };

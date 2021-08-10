@@ -69,6 +69,7 @@ int addParam(struct Arguments *args, const char *p)
 	if (
 		lookupParam(args, p, "CLEAN", PARAM_CLEAN, 2, "c", "clean") ||
 		lookupParam(args, p, "DEPS", PARAM_DEPS, 2, "d", "deps") ||
+		lookupParam(args, p, "EXPLICIT", PARAM_EXPLICIT, 2, "e", "explicit") ||
 		lookupParam(args, p, "GROUPS", PARAM_GROUPS, 2, "g", "groups") ||
 		lookupParam(args, p, "HELP", PARAM_HELP, 2, "h", "help") ||
 		lookupParam(args, p, "INFO", PARAM_INFO, 2, "i", "info") ||
