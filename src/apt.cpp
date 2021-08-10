@@ -15,6 +15,8 @@ const char
 	*apt_remove = "sudo apt remove",
 	*apt_search = "apt search",
 	*apt_cache_policy = "apt-cache policy",
+	*apt_file_search="apt-file search",
+	*apt_file_list="apt-file list",
 
 	//Regex
 		*get_version = "Installed: ([0-9.]*)";
@@ -63,16 +65,11 @@ int callApt(struct Arguments *args)
 	int done = 0;
 	if (args->params[PARAM_HELP] == 1)
 	{
-		if (done == 0 && args->op == OP_VERSION)
+		if (done == 0 && args->op == OP_FILES)
 		{
-			printf("usage:  woah {-V, --version} <options> <packages>\n\
+			printf("usage:  woah {-F --files} [option] <packages>\n\
 options:\n\
-  -q, --quiet      hide package name\n\
-packages:\n\
-  apt              apt version info\n\
-  dpkg             dpkg version info\n\
-  apt-file         apt-file version info\n\
-  woah             woah version info\n\
+  -l, --list <packages> List files in packages\n\
 ");
 			done++;
 		}
@@ -92,14 +89,28 @@ options:\n\
 ");
 			done++;
 		}
+		if (done == 0 && args->op == OP_VERSION)
+		{
+			printf("usage:  woah {-V, --version} <options> <packages>\n\
+options:\n\
+  -q, --quiet      hide package name\n\
+packages:\n\
+  apt              apt version info\n\
+  dpkg             dpkg version info\n\
+  apt-file         apt-file version info\n\
+  woah             woah version info\n\
+");
+			done++;
+		}
 		if (done == 0)
 		{
 			printf("usage:  woah <operation> [...]\n\
 operations:\n\
     woah {-h --help}\n\
-    woah {-V, --version} <options> <packages>\n\
+    woah {-V --version} [options] [packages]\n\
+    woah {-F --files} [option] <packages>\n\
     woah {-R --remove}             <packages>\n\
-    woah {-S --sync}    [options]  <packages>\n\
+    woah {-S --sync}    [options]  [packages]\n\
 \n\
 use 'woah {-h --help}' with an operation for available options\n\
 ");
@@ -160,6 +171,33 @@ use 'woah {-h --help}' with an operation for available options\n\
 		}
 		done++;
 	}
+	
+	if(args->op == OP_FILES) { // -Fl
+		if(done==0 && args->params[PARAM_LIST]==1) {// -Fl (packages)
+			char *cmd = (char *)malloc((strlen(apt_file_list) + 1 + args->targets_len) * sizeof(char));
+			sprintf(cmd, "%s %s", apt_file_list, args->targets);
+			callCommand(cmd);
+			done++;
+		}
+		if(done==0) {// -F (targets)
+			char *cmd = (char *)malloc((strlen(apt_file_search) + 1 + args->targets_len) * sizeof(char));
+			sprintf(cmd, "%s %s", apt_file_search, args->targets);
+			callCommand(cmd);
+			done++;
+		}
+	}
+
+	if (args->op == OP_REMOVE)
+	{ // -R
+		if (done == 0)
+		{ // -R (targets)
+			char *cmd = (char *)malloc((strlen(apt_remove) + 1 + args->targets_len) * sizeof(char));
+			sprintf(cmd, "%s %s", apt_remove, args->targets);
+			callCommand(cmd);
+			done++;
+		}
+	}
+	
 	if (args->op == OP_SYNC)
 	{ // -S
 		if (done == 0 && args->params[PARAM_SEARCH] == 1)
@@ -187,17 +225,6 @@ use 'woah {-h --help}' with an operation for available options\n\
 		{ // -S (targets)
 			char *cmd = (char *)malloc((strlen(apt_install) + 1 + args->targets_len) * sizeof(char));
 			sprintf(cmd, "%s %s", apt_install, args->targets);
-			callCommand(cmd);
-			done++;
-		}
-	}
-
-	if (args->op == OP_REMOVE)
-	{ // -R
-		if (done == 0)
-		{ // -R (targets)
-			char *cmd = (char *)malloc((strlen(apt_remove) + 1 + args->targets_len) * sizeof(char));
-			sprintf(cmd, "%s %s", apt_remove, args->targets);
 			callCommand(cmd);
 			done++;
 		}
