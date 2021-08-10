@@ -17,6 +17,7 @@ const char
 	*apt_cache_policy = "apt-cache policy",
 	*apt_file_search="apt-file search",
 	*apt_file_list="apt-file list",
+	*apt_file_update = "sudo apt-file update",
 
 	//Regex
 		*get_version = "Installed: ([0-9.]*)";
@@ -69,6 +70,7 @@ int callApt(struct Arguments *args)
 		{
 			printf("usage:  woah {-F --files} [option] <packages>\n\
 options:\n\
+  -y, --refresh <packages> Fetch Contents files from apt-sources\n\
   -l, --list <packages> List files in packages\n\
 ");
 			done++;
@@ -172,7 +174,11 @@ use 'woah {-h --help}' with an operation for available options\n\
 		done++;
 	}
 	
-	if(args->op == OP_FILES) { // -Fl
+	if(args->op == OP_FILES) { // -F
+		if(done==0 && args->params[PARAM_REFRESH]==1) {// -FY
+			callCommand(apt_file_update);
+			done++;
+		}
 		if(done==0 && args->params[PARAM_LIST]==1) {// -Fl (packages)
 			char *cmd = (char *)malloc((strlen(apt_file_list) + 1 + args->targets_len) * sizeof(char));
 			sprintf(cmd, "%s %s", apt_file_list, args->targets);
