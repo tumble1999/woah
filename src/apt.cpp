@@ -106,6 +106,15 @@ packages:\n\
 ");
 			done++;
 		}
+		if (done == 0 && args->op == OP_QUERY)
+		{
+			printf("usage:  woah {-Q --query} [options]\n\
+options:\n\
+  -d, --deps           Print the list of automatically installed packages\n\
+  -e, --explicit       Print the list of manually installed packages\n\
+");
+			done++;
+		}
 		if (done == 0 && args->op == OP_REMOVE)
 		{
 			printf("usage:  woah {-R --remove} <packages>\n\
@@ -127,9 +136,10 @@ options:\n\
 			printf("usage:  woah <operation> [...]\n\
 operations:\n\
     woah {-h --help}\n\
-    woah {-V, --version} <options> <packages>\n\
-    woah {-R --remove}             <packages>\n\
-    woah {-S --sync}    [options]  <packages>\n\
+    woah {-V --version} <options> <packages>\n\
+    woah {-Q --query}   [options]\n\
+    woah {-R --remove}            <packages>\n\
+    woah {-S --sync}    [options] <packages>\n\
 \n\
 use 'woah {-h --help}' with an operation for available options\n\
 ");
