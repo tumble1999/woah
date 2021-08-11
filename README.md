@@ -35,19 +35,24 @@ sudo apt install ./woah-0.0.0-Linux.deb
 	- [ ] -Dq - Database quiet
 	- [ ] -Dr - Database root
 	- [ ] -Dv - Database verbose
-- [ ] -F Files
+- [x] -F Files
 	- [ ] -Fh - Files help
 	- [ ] -Fb - Files dbpath
-	- [ ] -Fl - Files list
+	- [x] -Fl - Files list
 	- [ ] -Fo - Files owns
 	- [ ] -Fq - Files quiet
 	- [ ] -Fr - Files root
 	- [ ] -Fs - Files search
 	- [ ] -Fv - Files verbose
 	- [ ] -Fx - Files regex
+<<<<<<< HEAD
 	- [ ] -Fy - Files refresh
 - [x] -Q - Query	(inaccurate)
 	- [x] -Qh - Query help
+=======
+	- [x] -Fy - Files refresh
+- [ ] -Q - Query
+>>>>>>> feature/files
 	- [ ] -Qb - Query dbpath
 	- [ ] -Qc - Query changelog
 	- [x] -Qd - Query deps		(inaccurate)
