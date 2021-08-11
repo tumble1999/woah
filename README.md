@@ -46,11 +46,12 @@ sudo apt install ./woah-0.0.0-Linux.deb
 	- [ ] -Fv - Files verbose
 	- [ ] -Fx - Files regex
 	- [ ] -Fy - Files refresh
-- [ ] -Q - Query
+- [x] -Q - Query	(inaccurate)
+	- [x] -Qh - Query help
 	- [ ] -Qb - Query dbpath
 	- [ ] -Qc - Query changelog
-	- [ ] -Qd - Query deps
-	- [ ] -Qe - Query explicit
+	- [x] -Qd - Query deps		(inaccurate)
+	- [x] -Qe - Query explicit	(inaccurate)
 	- [ ] -Qg - Query groups
 	- [ ] -Qi - Query info
 	- [ ] -Qk - Query check
