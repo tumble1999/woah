@@ -47,6 +47,7 @@ sudo apt install ./woah-0.0.0-Linux.deb
 	- [ ] -Fx - Files regex
 	- [ ] -Fy - Files refresh
 - [x] -Q - Query	(inaccurate)
+	- [x] -Qh - Query help
 	- [ ] -Qb - Query dbpath
 	- [ ] -Qc - Query changelog
 	- [x] -Qd - Query deps		(inaccurate)
