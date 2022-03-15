@@ -7,9 +7,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/dep")
 
 
 execute_process (
-    COMMAND bash -c "git log --oneline --all|wc -l|tr '\n' ' '"
+	COMMAND bash -c "git log --oneline --all|wc -l|tr '\n' ' '"
 	WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE REVISION
+	OUTPUT_VARIABLE REVISION
 )
 add_compile_definitions(WOAH_VERSION="${CMAKE_PROJECT_VERSION}.${REVISION}")
 

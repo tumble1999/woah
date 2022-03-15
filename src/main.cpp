@@ -5,8 +5,7 @@
 
 int main(int argc, char const *argv[])
 {
-	if (DEBUG)
-	{
+	if (DEBUG) {
 		printf("Params: woah");
 		for (int i = 1; i < argc; i++)
 			printf(" %s", argv[i]);
@@ -15,13 +14,11 @@ int main(int argc, char const *argv[])
 
 	struct Arguments args;
 
-	if (parseArguments(&args, argc, argv))
-	{
+	if (parseArguments(&args, argc, argv)) {
 		printf("Error parsing the arguments\n");
 		return 1;
 	}
-	if (callApt(&args))
-	{
+	if (callApt(&args)) {
 		printf("Invalid action.\n");
 		return 1;
 	}
