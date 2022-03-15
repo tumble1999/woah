@@ -133,7 +133,7 @@ int parseArguments(struct Arguments *args, int argc, char const *argv[])
 			if (p[1] == '-' && strlen(p) > 2) {
 				if (parseDoubleDashed(args, p + 2))
 					return 1;
-			} else  {
+			} else {
 				if (parseSingleDashed(args, p + 1))
 					return 1;
 			}

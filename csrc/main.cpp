@@ -3,8 +3,7 @@
 #include "parse_cmd.h"
 #include "apt.h"
 
-int main(int argc, char const *argv[])
-{
+int main(int argc, char const *argv[]) {
 	if (DEBUG) {
 		printf("Params: woah");
 		for (int i = 1; i < argc; i++)
