@@ -1,52 +1,10 @@
-pub enum Operation {
-	Help,
-	Version,
-	Database,
-	Files,
-	Query,
-	Remove,
-	Sync,
-	Deptest,
-	Upgrade,
-}
-
-impl Operation {
-	fn from_long_arg(flag: &str) -> Result<Operation, ()> {
-		match flag {
-			"help" => Ok(Operation::Help),
-			"version" => Ok(Operation::Version),
-			"database" => Ok(Operation::Database),
-			"files" => Ok(Operation::Files),
-			"query" => Ok(Operation::Query),
-			"remove" => Ok(Operation::Remove),
-			"sync" => Ok(Operation::Sync),
-			"deptest" => Ok(Operation::Deptest),
-			"upgrade" => Ok(Operation::Upgrade),
-			_ => {Err(())}
-		}
-	}
-
-	fn from_short_arg(flag: char) -> Result<Operation, ()> {
-		match flag {
-			'h' => Ok(Operation::Help),
-			'V' => Ok(Operation::Version),
-			'D' => Ok(Operation::Database),
-			'F' => Ok(Operation::Files),
-			'Q' => Ok(Operation::Query),
-			'R' => Ok(Operation::Remove),
-			'S' => Ok(Operation::Sync),
-			'T' => Ok(Operation::Deptest),
-			'U' => Ok(Operation::Upgrade),
-			_ => {Err(())}
-		}
-	}
-}
+use crate::operation::Operation;
 
 pub struct BaseOperation { // TODO: better name
-	operation: Operation,
-	short_flags: Vec<char>,
-	long_flags: Vec<String>,
-	targets: Vec<String>,
+	pub operation: Operation,
+	pub short_flags: Vec<char>,
+	pub long_flags: Vec<String>,
+	pub targets: Vec<String>,
 }
 
 pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
@@ -62,10 +20,10 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 				// long flag
 				let trim = &a[2..];
 				if let Ok(o) = Operation::from_long_arg(trim) {
-					if operation.is_some() {
-						return Err(String::from("error: only one operation may be used at a time\n"));
-					} else {
+					if operation.is_none() || matches!(o, Operation::Help) {
 						operation = Some(o);
+					} else {
+						return Err(String::from("error: only one operation may be used at a time\n"));
 					}
 				} else {
 					long_flags.push(String::from(trim));
@@ -74,10 +32,10 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 				// short flag
 				for f in a[1..].chars() {
 					if let Ok(o) = Operation::from_short_arg(f) {
-						if operation.is_some() {
-							return Err(String::from("error: only one operation may be used at a time\n"));
-						} else {
+						if operation.is_none() || matches!(o, Operation::Help) {
 							operation = Some(o);
+						} else {
+							return Err(String::from("error: only one operation may be used at a time\n"));
 						}
 					} else {
 						short_flags.push(f);
@@ -88,7 +46,7 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 			targets.push(a);
 		}
 	}
-/*
+/* TODO
 	// MergeTargets
 	args->targets_len += args->target_count; // Add spaces
 	args->targets = (const char *)malloc(args->targets_len * sizeof(char));
