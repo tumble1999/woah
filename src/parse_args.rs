@@ -19,24 +19,16 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 			if a.as_bytes()[1] == b'-' {
 				// long flag
 				let trim = &a[2..];
-				if let Ok(o) = Operation::from_long_arg(trim) {
-					if operation.is_none() || matches!(o, Operation::Help) {
-						operation = Some(o);
-					} else {
-						return Err(String::from("error: only one operation may be used at a time\n"));
-					}
+				if let Ok(new) = Operation::from_long_arg(trim) {
+					operation = get_new_op(operation, new)?;
 				} else {
 					long_flags.push(String::from(trim));
 				}
 			} else {
 				// short flag
 				for f in a[1..].chars() {
-					if let Ok(o) = Operation::from_short_arg(f) {
-						if operation.is_none() || matches!(o, Operation::Help) {
-							operation = Some(o);
-						} else {
-							return Err(String::from("error: only one operation may be used at a time\n"));
-						}
+					if let Ok(new) = Operation::from_short_arg(f) {
+						operation = get_new_op(operation, new)?;
 					} else {
 						short_flags.push(f);
 					}
@@ -70,5 +62,19 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 		})
 	} else {
 		Err(String::from("error: no operation specified (use -h for help)"))
+	}
+}
+
+fn get_new_op(curr: Option<Operation>, new: Operation) -> Result<Option<Operation>, String> {
+	if curr.is_none() {
+		Ok(Some(new))
+	} else if matches!(new, Operation::Help(_)) {
+		if let Some(Operation::Not(nh)) = curr {
+			Ok(Some(Operation::Help(Some(nh))))
+		} else {
+			Ok(curr)
+		}
+	} else {
+		Err(String::from("error: only one operation may be used at a time\n"))
 	}
 }
