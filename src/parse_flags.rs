@@ -1,8 +1,7 @@
-use crate::operation::NonHelpOp;
+use crate::operation::FullOp;
 use crate::parse_args::Argument;
 
 pub enum ComplexOperation {
-	Version,
 	Database(CommonOptions, DatabaseOptions),
 	Files(CommonOptions, FilesOptions),
 	Query(CommonOptions, QueryOptions),
@@ -111,54 +110,49 @@ pub struct UpgradeOptions {
 	print_format: Option<String>,
 }
 
-pub struct ComplexOperationWithTargets { // TODO: better name
+pub struct ComplexFormula { // TODO: better name
 	pub operation: ComplexOperation,
 	pub targets: Vec<String>,
 }
 
-pub fn parse(operation: NonHelpOp, mut args: Vec<Argument>) -> Result<ComplexOperationWithTargets, String> {
-	match operation {
-		NonHelpOp::Version => Ok(ComplexOperation::Version),
-		operation => {
-			let targets : Vec<String> = vec![];
-			let common = CommonOptions {
-				dbpath: None,
-				arch: None,
-				cachedir: None,
-			};
-			args.retain(|arg| {
-				match arg {
-					Argument::Short('') | Argument::Long(String::From("")) => {},
-					_ => {return true;},
-				}
-				false
-			});
-
-			let out_operation = match operation {
-				NonHelpOp::Database => {
-					ComplexOperation::Database(common, )
-				},
-				NonHelpOp::Files => {
-					ComplexOperation::Files(common, )
-				},
-				NonHelpOp::Query => {
-					ComplexOperation::Query(common, )
-				},
-				NonHelpOp::Remove => {
-					ComplexOperation::Remove(common, )
-				},
-				NonHelpOp::Sync => {
-					ComplexOperation::Sync(common, )
-				},
-				NonHelpOp::Deptest => ComplexOperation::Deptest(common),
-				NonHelpOp::Upgrade => {
-					ComplexOperation::Upgrade(common, )
-				},
-			};
-			ComplexOperationWithTargets {
-				operation: out_operation,
-				targets,
-			}
+pub fn parse(operation: FullOp, mut args: Vec<Argument>) -> Result<ComplexFormula, String> {
+	let targets : Vec<String> = vec![];
+	let common = CommonOptions {
+		dbpath: None,
+		arch: None,
+		cachedir: None,
+	};
+	args.retain(|arg| {
+		match arg {
+			Argument::Short('') | Argument::Long(String::from("")) => {},
+			_ => {return true;},
 		}
+		false
+	});
+
+	let out_operation = match operation {
+		FullOp::Database => {
+			ComplexOperation::Database(common, )
+		},
+		FullOp::Files => {
+			ComplexOperation::Files(common, )
+		},
+		FullOp::Query => {
+			ComplexOperation::Query(common, )
+		},
+		FullOp::Remove => {
+			ComplexOperation::Remove(common, )
+		},
+		FullOp::Sync => {
+			ComplexOperation::Sync(common, )
+		},
+		FullOp::Deptest => ComplexOperation::Deptest(common),
+		FullOp::Upgrade => {
+			ComplexOperation::Upgrade(common, )
+		},
+	};
+	ComplexFormula {
+		operation: out_operation,
+		targets,
 	}
 }

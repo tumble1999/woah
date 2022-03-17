@@ -8,12 +8,12 @@ pub enum Argument {
 }
 
 // NOTE: strings after flags MAY be flag parameters but they may be targets, parsing on them needs to be done later in processing
-pub struct BaseOperation { // TODO: better name
+pub struct SimpleFormula {
 	pub operation: Operation,
 	pub args: Vec<Argument>,
 }
 
-pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
+pub fn parse(mut args: std::env::Args) -> Result<SimpleFormula, String> {
 	let mut operation: Option<Operation> = None;
 	let mut out_args: Vec<Argument> = vec![];
 
@@ -46,7 +46,7 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 	}
 
 	if let Some(op) = operation {
-		Ok(BaseOperation {
+		Ok(SimpleFormula {
 			operation: op,
 			args: out_args,
 		})
@@ -58,7 +58,7 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 fn get_new_op(curr: Option<Operation>, new: Operation) -> Result<Option<Operation>, String> {
 	if curr.is_none() {
 		Ok(Some(new))
-	} else if matches!(new, Operation::Help(_)) {
+	} else if matches!(new, Operation::Help(None)) {
 		if let Some(Operation::Not(nh)) = curr {
 			Ok(Some(Operation::Help(Some(nh))))
 		} else {
