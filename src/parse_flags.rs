@@ -7,15 +7,15 @@ pub enum ComplexOperation {
 	Query(CommonOptions, QueryOptions),
 	Remove(CommonOptions, RemoveOptions),
 	Sync(CommonOptions, SyncOptions),
-	Deptest(CommonOptions, DeptestOptions),
+	Deptest(CommonOptions),
 	Upgrade(CommonOptions, UpgradeOptions),
 }
 // TODO: set types and check what options are possible
 // TODO: check for mistakes (options in or not in common, completely missing options)
 pub struct CommonOptions {
 	dbpath: Option<String>,
-	root: Option<String>,
 	quiet: bool,
+	root: Option<String>,
 	verbose: bool,
 	arch: Option<String>,
 	cachedir: Option<String>,
@@ -27,17 +27,19 @@ pub struct CommonOptions {
 	gpgdir: Option<String>,
 	hookdir: Option<String>,
 	logfile: Option<String>,
-	machinereadable: bool, // TODO: query doesn't have this
 	noconfirm: bool,
 	sysroot: Option<String>,
 }
 pub struct DatabaseOptions {
 	check: /* enum */,
+	asdeps:
+	asexplicit:
 }
 pub struct FilesOptions {
 	list:
 	regex:
 	refresh:
+	machinereadable: bool,
 }
 pub struct QueryOptions {
 	changelog:
@@ -91,9 +93,6 @@ pub struct SyncOptions {
 	overwrite: Vec<String>,
 	print_format: Option<String>,
 }
-pub struct DeptestOptions {
-	check:
-}
 pub struct UpgradeOptions {
 	nodeps:
 	print: bool,
@@ -136,9 +135,7 @@ pub fn parse(operation: NonHelpOp, short_flags: Vec<char>, long_flags: Vec<Strin
 				NonHelpOp::Sync => {
 					ComplexOperation::Sync(common, )
 				},
-				NonHelpOp::Deptest => {
-					ComplexOperation::Deptest(common, )
-				},
+				NonHelpOp::Deptest => ComplexOperation::Deptest(common),
 				NonHelpOp::Upgrade => {
 					ComplexOperation::Upgrade(common, )
 				},
