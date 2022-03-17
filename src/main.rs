@@ -25,7 +25,7 @@ fn main() -> Result<(), String> { // TODO: change error message formatting to ju
 			)
 		},
 		Operation::Not(op) => {
-			let complex_op = parse_flags::parse(op, base_op.short_flags, base_op.long_flags, base_op.targets)?;
+			let complex_op = parse_flags::parse(op, base_op.args)?;
 		},
 	}
 

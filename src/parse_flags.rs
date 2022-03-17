@@ -1,4 +1,5 @@
 use crate::operation::NonHelpOp;
+use crate::parse_args::Argument;
 
 pub enum ComplexOperation {
 	Version,
@@ -110,16 +111,30 @@ pub struct UpgradeOptions {
 	print_format: Option<String>,
 }
 
-pub fn parse(operation: NonHelpOp, short_flags: Vec<char>, long_flags: Vec<String>) -> Result<ComplexOperation, String> {
+pub struct ComplexOperationWithTargets { // TODO: better name
+	pub operation: ComplexOperation,
+	pub targets: Vec<String>,
+}
+
+pub fn parse(operation: NonHelpOp, mut args: Vec<Argument>) -> Result<ComplexOperationWithTargets, String> {
 	match operation {
 		NonHelpOp::Version => Ok(ComplexOperation::Version),
 		operation => {
+			let targets : Vec<String> = vec![];
 			let common = CommonOptions {
 				dbpath: None,
 				arch: None,
 				cachedir: None,
-			}
-			match operation {
+			};
+			args.retain(|arg| {
+				match arg {
+					Argument::Short('') | Argument::Long(String::From("")) => {},
+					_ => {return true;},
+				}
+				false
+			});
+
+			let out_operation = match operation {
 				NonHelpOp::Database => {
 					ComplexOperation::Database(common, )
 				},
@@ -139,6 +154,10 @@ pub fn parse(operation: NonHelpOp, short_flags: Vec<char>, long_flags: Vec<Strin
 				NonHelpOp::Upgrade => {
 					ComplexOperation::Upgrade(common, )
 				},
+			};
+			ComplexOperationWithTargets {
+				operation: out_operation,
+				targets,
 			}
 		}
 	}
