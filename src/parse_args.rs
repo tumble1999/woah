@@ -14,6 +14,7 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 	let mut targets: Vec<String> = vec![];
 
 	args.next();
+	// TODO: this doesn't work because many flags take arguments, this just completely ignores them
 	for a in args {
 		if a.len() > 1 && a.as_bytes()[0] == b'-' {
 			if a.as_bytes()[1] == b'-' {
@@ -38,21 +39,7 @@ pub fn parse(mut args: std::env::Args) -> Result<BaseOperation, String> {
 			targets.push(a);
 		}
 	}
-/* TODO
-	// MergeTargets
-	args->targets_len += args->target_count; // Add spaces
-	args->targets = (const char *)malloc(args->targets_len * sizeof(char));
-	int offset = 0;
-	for (int i = 0; i < args->target_count; i++) {
-		int left = args->targets_len - offset,
-			written = snprintf((char *)args->targets + offset, left, "%s ", args->targets_arr[i]);
-			if (left < written)
-				break;
-			offset += written;
-	}
-	if (args->targets_len > 0 && DEBUG)
-	printf("Targets: %s\n", args->targets);
-*/
+
 	if let Some(op) = operation {
 		Ok(BaseOperation {
 			operation: op,
