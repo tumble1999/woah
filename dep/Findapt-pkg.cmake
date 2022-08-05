@@ -4,14 +4,16 @@
 #APTPKG_INCLUDE_DIR
 #APTPKG_LIBRARY
 
-if(UNIX)
-	find_path(APTPKG_INCLUDE_DIR
-	NAMES apt-pkg/dpkgpm.h
-	PATH /usr/include
+if (UNIX)
+	find_path(
+		APTPKG_INCLUDE_DIR
+		NAMES apt-pkg/dpkgpm.h
+		PATH /usr/include
 	)
-	find_library(APTPKG_LIBRARY
-	NAMES libapt-pkg.so
-	PATH /usr/lib
+	find_library(
+		APTPKG_LIBRARY
+		NAMES libapt-pkg.so
+		PATH /usr/lib
 	)
 endif()
 

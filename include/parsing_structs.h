@@ -2,8 +2,7 @@
 
 #define DEBUG false
 
-enum Operation
-{
+enum Operation {
 	OP_NULL,
 	OP_VERSION,
 	OP_DATABASE,
@@ -15,8 +14,7 @@ enum Operation
 	OP_UPGRADE
 };
 
-enum Param
-{
+enum Param {
 	PARAM_CLEAN,	//c
 	PARAM_DEPS,		//d
 	PARAM_EXPLICIT, //e
@@ -33,8 +31,7 @@ enum Param
 	NUM_PARAMS
 };
 
-struct Arguments
-{
+struct Arguments {
 	enum Operation op;
 	unsigned int *params;
 	const char **targets_arr;
@@ -43,18 +40,15 @@ struct Arguments
 	unsigned int targets_len;
 };
 
-struct dpkg_entry
-{
-	enum package_selection
-	{
+struct dpkg_entry {
+	enum package_selection {
 		SEL_UNKNOWN,
 		SEL_INSTALL,
 		SEL_HOLD,
 		SEL_REMOVE,
 		SEL_PURGE
 	} select;
-	enum package_status
-	{
+	enum package_status {
 		STAT_NOTINSTALLED,
 		STAT_CONFIGFILES,
 		STAT_HALFINSTALLED,
